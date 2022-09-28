@@ -25,8 +25,8 @@ export default async function handler(req, res) {
 
   const details = {}
   details['id'] = id
+  details['valid'] = true
   details['data'] = {}
-  details['data']['valid'] = true
   details['data']['day'] = day
   details['data']['month'] = new Date(year, month-1, day).toLocaleString('default', { month: 'long' })
   details['data']['year'] = new Date(year, month, day).getFullYear()
