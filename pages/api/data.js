@@ -33,7 +33,7 @@ export default async function handler(req, res) {
   details['data']['year'] = new Date(year, month, day).getFullYear()
   details['data']['gender'] = day > 40 ? 'Female' : 'Male'
   details['data']['district'] = capitalize(data['kecamatan'][district] ? (data['kecamatan'][district].includes('--') ? data['kecamatan'][district].split(' -- ')[0] : data['kecamatan'][district]) : null)
-  details['data']['city'] = capitalize(data['kabkot'][city])
+  details['data']['city'] = capitalize(data['kabkot'][city] ? data['kabkot'][city] : null)
   details['data']['province'] = capitalize(data['provinsi'][province])
   details['data']['postcode'] = parseInt(data['kecamatan'][district] ? (data['kecamatan'][district].includes('--') ? data['kecamatan'][district].split(' -- ')[1] : data['kecamatan'][district]) : data['kecamatan'][district])
 
