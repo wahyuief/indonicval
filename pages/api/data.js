@@ -2,13 +2,13 @@ import path from 'path';
 import { promises as fs } from 'fs';
 
 export default async function handler(req, res) {
-  if (req.method !== 'GET') return res.status(405).end()
-  if (req.headers.baby_yoda_token !== process.env.BABY_YODA_TOKEN) return res.status(401).end()
+  if (req.method !== 'GET') return res.status(405).json({"code":405, "message": "Invalid Method! Only using GET"})
+  if (req.headers.baby_yoda_token !== process.env.BABY_YODA_TOKEN) return res.status(401).json({"code":401, "message": "Your'e not authorized!"})
 
   const { id } = req.query
-  if (!id) return res.status(400).json({"code":400, "message": "ID parameter is required!"}).end()
-  if (!/^[0-9]+$/.test(id)) return res.status(400).json({"code":400, "message": "Invalid parameter ID! The indonesian NIC is only number"}).end()
-  if (id.length !== 16) return res.status(400).json({"code":400, "message": "Invalid parameter ID! The length of the Indonesian NIC is a 16 digit number"}).end()
+  if (!id) return res.status(400).json({"code":400, "message": "ID parameter is required!"})
+  if (!/^[0-9]+$/.test(id)) return res.status(400).json({"code":400, "message": "Invalid parameter ID! The indonesian NIC is only number"})
+  if (id.length !== 16) return res.status(400).json({"code":400, "message": "Invalid parameter ID! The length of the Indonesian NIC is a 16 digit number"})
 
   const filePath = path.join(process.cwd(), 'data.json')
   const jsonData = await fs.readFile(filePath, 'utf8')
