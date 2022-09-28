@@ -6,9 +6,9 @@ export default async function handler(req, res) {
   if (req.headers.baby_yoda_token !== process.env.BABY_YODA_TOKEN) return res.status(401).end()
 
   const { id } = req.query
-  if (!id) return res.status(400).json("ID parameter is required!").end()
-  if (!/^[0-9]+$/.test(id)) return res.status(400).json("Invalid parameter ID! The indonesian NIC is only number").end()
-  if (id.length !== 16) return res.status(400).json("Invalid parameter ID! The length of the Indonesian NIC is a 16 digit number").end()
+  if (!id) return res.status(400).json({"code":400, "message": "ID parameter is required!"}).end()
+  if (!/^[0-9]+$/.test(id)) return res.status(400).json({"code":400, "message": "Invalid parameter ID! The indonesian NIC is only number"}).end()
+  if (id.length !== 16) return res.status(400).json({"code":400, "message": "Invalid parameter ID! The length of the Indonesian NIC is a 16 digit number"}).end()
 
   const filePath = path.join(process.cwd(), 'data.json')
   const jsonData = await fs.readFile(filePath, 'utf8')
